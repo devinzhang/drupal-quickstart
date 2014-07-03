@@ -62,6 +62,7 @@ then
   cat ${DRUPAL_SETTINGS} | ruby -e "puts STDIN.read.gsub(/\\\$databases\s*=\s*array.*?\)\;/m, '# Replaced by OpenShift')" > ${OPENSHIFT_TMP_DIR}/settings.php
   cat << "END" >> ${OPENSHIFT_TMP_DIR}/settings.php
 
+echo "now, I am going to change the settings.php"
 /**
  * For maximum portability, use the OpenShift environment variables.
  */
