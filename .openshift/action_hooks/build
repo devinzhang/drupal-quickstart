@@ -5,6 +5,7 @@
 # could be python, php, ruby, etc. 
 
 set -e
+echo "testin"
 
 #
 # The PHP dir most be controlled by Drupal content
@@ -33,18 +34,35 @@ EOF
 if [ ! -d "${OPENSHIFT_DATA_DIR}downloads/current" ]
 then
   mkdir -p ${OPENSHIFT_TMP_DIR}drupal
+  
+  
 
   echo "Download and install the latest stable version of Drupal"
   echo
 
   mkdir -p ${OPENSHIFT_DATA_DIR}downloads
-  if ! drush dl drupal --destination=${OPENSHIFT_DATA_DIR}downloads --yes
-  then
-    echo "ERROR: Unable download and install Drupal."
-    exit 7
-  fi
+  
+  echo ${OPENSHIFT_DATA_DIR}downloads
+  
+  pwd
+  
+#  if ! drush dl drupal --destination=${OPENSHIFT_DATA_DIR}downloads --yes
+#  then
+#    echo "ERROR: Unable download and install Drupal."
+#    exit 7
+#  fi
+  cd ${OPENSHIFT_DATA_DIR}downloads
+  #wget http://www.wfhuli.com/visualenterprise.tar.gz
+  cp /opt/visualenterprise.tar.gz .
+  #wget www.wfhuli.com/drupal-7.28.tar.gz
+  #tar -xvf drupal-7.28.tar.gz
+  #rm -rf drupal-7.28.tar.gz
+  tar -xvf visualenterprise.tar.gz
+  rm -rf visualenterprise.tar.gz
+  cd -
+  
+  pwd
 
-  #
   # Link the /current symlink to the latest Drupal instance
   #
   rm -f ${OPENSHIFT_DATA_DIR}downloads/current
@@ -79,6 +97,8 @@ then
   ln -sfn ../../sites $DRUPAL_INSTALL_DIR/sites
 fi
 
+echo "geiao"
+pwd
 #
 # Ensure that the app-root/runtime/repo/php PHP directory points
 # to a valid Drupal instance directory
